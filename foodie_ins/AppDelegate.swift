@@ -7,17 +7,30 @@
 
 import UIKit
 import CoreData
-
+import Firebase
+import AWSCore
+import AWSCognito
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+    func application(_ application: UIApplication,
+      didFinishLaunchingWithOptions launchOptions:
+        [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+      FirebaseApp.configure()
+      self.initializeS3()
+      return true
     }
+    
+    func initializeS3() {
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast2,
+           identityPoolId:"////dont want to publish")
 
+        let configuration = AWSServiceConfiguration(region:.USEast2, credentialsProvider:credentialsProvider)
+
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
