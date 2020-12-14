@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
             endingLineNumber = "21"
-            landmarkName = "createUser(email:password:)"
+            landmarkName = "createUser(email:password:username:)"
             landmarkType = "7">
             <Locations>
                <Location
