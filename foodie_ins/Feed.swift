@@ -28,9 +28,12 @@ class FeedController: UITableViewController{
     
     
     private func fetchDb(){
+        
        let docRef = self.db.collection("posts")
         docRef.getDocuments() { (querySnapshot, err) in
+            self.postList = []
             if let err = err {
+                self.postList = []
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
@@ -53,23 +56,22 @@ class FeedController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: Deque a cell from the table view and configure its UI. Set the label and star image by using cell.viewWithTag(..)
         let cell = tableView.dequeueReusableCell(withIdentifier: "blah", for: indexPath)
         let curr = postList[indexPath.row]
         if let name = cell.viewWithTag(1) as? UILabel {
-//            var email: String = "Annoymous"
-//            if curr.userName != "Annoymous"{
-//
-//                let docRef = self.db.collection("posts").document(curr.userName)
-//                 docRef.getDocument {  (document, err) in
-//                     if let err = err {
-//                         print("Error getting documents: \(err)")
-//                     } else {
-//                        email = (document!.get("email") as! String)
-//                     }
-//                 }
-//            }
-            name.text = curr.userName
+            name.text = "Loading"
+            if curr.userName != "Annoymous"{
+                let docRef = db.collection("users").document("\(curr.userName)")
+                docRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        name.text = document.get("username") as? String
+                    } else {
+                        print("can't find document \(curr.userName)")
+                    }
+                }
+            }else{
+                name.text = "Annoymous"
+            }
         }
         if let cap = cell.viewWithTag(4) as? UILabel {
             cap.text = curr.caption
@@ -80,7 +82,6 @@ class FeedController: UITableViewController{
         if let loca = cell.viewWithTag(2) as? UILabel {
             loca.text = curr.location
         }
-        
         return cell
     }
     

@@ -22,23 +22,20 @@ class AddRestaurantViewController: UIViewController {
     @IBOutlet weak var preview: UIImageView!
     @IBOutlet weak var restaurant: UITextField!
     @IBOutlet weak var caption: UITextField!
-    var userName: String?
+    var userid: String?
     var handle: Any?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // [START auth_listener]
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
           // [START_EXCLUDE]
-            self.userName = user?.uid
-          // [END_EXCLUDE]
+            self.userid = user?.uid
         }
       }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // [START remove_auth_listener]
         Auth.auth().removeStateDidChangeListener(handle! as! NSObjectProtocol)
-        // [END remove_auth_listener]
     }
     var imageURL: String = "https://www.nps.gov/common/uploads/structured_data/3C7D2FBB-1DD8-B71B-0BED99731011CFCE.jpg"
     var uploadCompletionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
@@ -53,8 +50,9 @@ class AddRestaurantViewController: UIViewController {
     
     @IBAction func savePost(_ sender: Any) {
         if restaurant.hasText && caption.hasText{
-            let newPost = Post(userName: self.userName ?? "Annoymous", caption: caption.text!, pic: imageURL, location: restaurant.text!)
+            let newPost = Post(userName: self.userid ?? "Annoymous", caption: caption.text!, pic: imageURL, location: restaurant.text!)
             save(p: newPost)
+            transitionToHome()
         }
         
     }
@@ -65,6 +63,15 @@ class AddRestaurantViewController: UIViewController {
         simplified["location"] = p.location
         let db = Firestore.firestore()
         db.collection("posts").addDocument(data: simplified as! [String : Any])
+        
+    }
+    func transitionToHome() {
+        self.performSegue(withIdentifier: "backtohome", sender: addButton)
+//        let homeViewController = storyboard?.instantiateViewController(identifier: "TabVC") as? FeedController
+//        
+//        view.window?.rootViewController = homeViewController
+//        view.window?.makeKeyAndVisible()
+        
     }
 }
 
@@ -95,15 +102,15 @@ extension AddRestaurantViewController: UIImagePickerControllerDelegate, UINaviga
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.preview.image = originalImage
         }
-        //upload()
+//        upload()
         dismiss(animated: true, completion: nil)
     }
 //    func upload(){
 //        AWSS3Manager.shared.uploadImage(image: self.preview.image!, completion:{ (uploadedFileUrl, error) in
-//                if let finalPath = uploadedFileUrl as? String { // 3
+//                if let finalPath = uploadedFileUrl as? String {
 //                    self.imageURL = finalPath
 //                } else {
-//                    print("\(String(describing: error?.localizedDescription))") // 4
+//                    print("\(String(describing: error?.localizedDescription))")
 //                }
 //        })
 //    }
