@@ -21,14 +21,12 @@ class SignUpViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                     // [START_EXCLUDE]
             guard let user = authResult?.user, error == nil else {
-                print("Im here")
                 print(error.debugDescription)
                         return
             }
             self.userId = user.uid
             let db = Firestore.firestore()
-            db.collection("users").document("\(user.uid)").setData(["username": username]) { (error) in
-
+            db.collection("users").document("\(user.uid)").setData(["username": username, "posts": []]) { (error) in
                 if error != nil {
                     print("Error saving user data")
                 }

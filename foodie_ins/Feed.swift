@@ -12,8 +12,6 @@ class FeedController: UITableViewController{
     let db = Firestore.firestore()
     var userId: String?
     var postList:[Post] = []
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -80,7 +78,15 @@ class FeedController: UITableViewController{
             pic.kf.setImage(with: URL(string: curr.pic))
         }
         if let loca = cell.viewWithTag(2) as? UILabel {
-            loca.text = curr.location
+            loca.text = "Loading"
+            let docRef = db.collection("restaurants").document("\(curr.location)")
+            docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                    loca.text = document.get("name") as? String
+                } else {
+                    print("can't find document \(curr.location)")
+                }
+            }
         }
         return cell
     }

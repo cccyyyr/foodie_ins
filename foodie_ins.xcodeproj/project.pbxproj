@@ -21,6 +21,8 @@
 		A42DFD34257985E300D904CF /* S3Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42DFD33257985E300D904CF /* S3Wrapper.swift */; };
 		A42DFD38257A3B1700D904CF /* signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42DFD37257A3B1700D904CF /* signup.swift */; };
 		A42DFD3B257A3B2300D904CF /* signin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42DFD3A257A3B2300D904CF /* signin.swift */; };
+		A4B204CD258C58B000D4E578 /* MyFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B204CC258C58B000D4E578 /* MyFeed.swift */; };
+		A4B204D0258C697400D4E578 /* api_keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B204CF258C697400D4E578 /* api_keys.swift */; };
 		B9FD4D9C0DBB19158FF3C472 /* Pods_foodie_ins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75FFB350A239280D11CDC5FB /* Pods_foodie_ins.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		A42DFD33257985E300D904CF /* S3Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Wrapper.swift; sourceTree = "<group>"; };
 		A42DFD37257A3B1700D904CF /* signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signup.swift; sourceTree = "<group>"; };
 		A42DFD3A257A3B2300D904CF /* signin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signin.swift; sourceTree = "<group>"; };
+		A4B204CC258C58B000D4E578 /* MyFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeed.swift; sourceTree = "<group>"; };
+		A4B204CF258C697400D4E578 /* api_keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api_keys.swift; sourceTree = "<group>"; };
 		EEE3CAB8014771E78156B0E4 /* Pods-foodie_ins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodie_ins.release.xcconfig"; path = "Target Support Files/Pods-foodie_ins/Pods-foodie_ins.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +91,7 @@
 		A42DFCB62567F03200D904CF /* foodie_ins */ = {
 			isa = PBXGroup;
 			children = (
+				A4B204CF258C697400D4E578 /* api_keys.swift */,
 				A42DFCFE25792C7C00D904CF /* GoogleService-Info.plist */,
 				A42DFCB72567F03200D904CF /* AppDelegate.swift */,
 				A42DFCB92567F03200D904CF /* SceneDelegate.swift */,
@@ -102,6 +107,7 @@
 				A42DFD33257985E300D904CF /* S3Wrapper.swift */,
 				A42DFD37257A3B1700D904CF /* signup.swift */,
 				A42DFD3A257A3B2300D904CF /* signin.swift */,
+				A4B204CC258C58B000D4E578 /* MyFeed.swift */,
 			);
 			path = foodie_ins;
 			sourceTree = "<group>";
@@ -236,7 +242,9 @@
 				A42DFCB82567F03200D904CF /* AppDelegate.swift in Sources */,
 				A42DFCDE2579227A00D904CF /* PostController.swift in Sources */,
 				A42DFD3B257A3B2300D904CF /* signin.swift in Sources */,
+				A4B204D0258C697400D4E578 /* api_keys.swift in Sources */,
 				A42DFCC22567F03200D904CF /* foodie_ins.xcdatamodeld in Sources */,
+				A4B204CD258C58B000D4E578 /* MyFeed.swift in Sources */,
 				A42DFD34257985E300D904CF /* S3Wrapper.swift in Sources */,
 				A42DFD1A25796AFE00D904CF /* AlertService.swift in Sources */,
 				A42DFCBA2567F03200D904CF /* SceneDelegate.swift in Sources */,

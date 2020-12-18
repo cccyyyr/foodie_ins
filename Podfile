@@ -12,4 +12,6 @@ target 'foodie_ins' do
   pod 'AWSS3'
   pod 'AWSCognito'
   pod 'AWSCore'
+  use_frameworks!
+  pod "SearchTextField"
 end

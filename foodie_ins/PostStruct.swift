@@ -14,3 +14,4 @@ struct Post: Codable{
     var pic: String
     var location: String
 }
+
