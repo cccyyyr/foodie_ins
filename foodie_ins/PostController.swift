@@ -18,7 +18,7 @@ class AddRecipeViewController: UIViewController {
     
 }
 
-class AddRestaurantViewController: UIViewController {
+class AddRestaurantViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var preview: UIImageView!
     @IBOutlet weak var restaurant: SearchTextField!
@@ -45,18 +45,39 @@ class AddRestaurantViewController: UIViewController {
     var uploadCompletionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
     override func viewDidLoad() {
         super.viewDidLoad()
+        preview.image = UIImage.init(systemName: "plus")
+        preview.tintColor =  UIColor.gray
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        self.currentLoc = CLLocation(latitude: CLLocationDegrees(40), longitude: CLLocationDegrees(-75))
-//        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-//        CLLocationManager.authorizationStatus() == .authorizedAlways) {
-//           currentLoc = locationManager.location
-//           print(currentLoc.coordinate.latitude)
-//           print(currentLoc.coordinate.longitude)
-//        } else {
-//            currentLoc = CLLocation(latitude: CLLocationDegrees(40), longitude: CLLocationDegrees(-75))
-//        }
+        locationManager.requestLocation()
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways) {
+           currentLoc = locationManager.location
+           print(currentLoc.coordinate.latitude)
+           print(currentLoc.coordinate.longitude)
+        } else {
+            currentLoc = CLLocation(latitude: CLLocationDegrees(40), longitude: CLLocationDegrees(-75))
+        }
         configureAutoSearch()
     }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+            print("error:: \(error.localizedDescription)")
+       }
+
+       func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+           if status == .authorizedWhenInUse {
+               locationManager.requestLocation()
+                         }
+       }
+
+       func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+           if locations.first != nil {
+            currentLoc = locations.first
+
+           }
+
+       }
     @IBAction func addPic(_ sender: Any) {
         showChooseSourceTypeAlertController()
     }
@@ -241,7 +262,6 @@ extension AddRestaurantViewController: UIImagePickerControllerDelegate, UINaviga
 //    }
     
 }
-
 
 struct SearchResult: Any{
     var title: String
